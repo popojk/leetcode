@@ -8,42 +8,30 @@ export interface Item {
 	amount: number;
 }
 
-export interface PickedItem extends Item {
-	picked: number
+/**
+ * 列出所有組合
+ * @param items 要撿的東西
+ * @param pick 要挑幾個
+ */
+function combination<T extends Item = Item> (items: Array<T>, pick: number): Array<Array<T>> {
+	const n = items.length;
+    const dp: Array<Array<Array<T>>> = Array.from({ length: pick + 1 }, () => []);
+    
+    dp[0] = [[]];
+    for (let i = 0; i < n; i++) {
+        const item = items[i];
+        for (let p = pick; p >= 1; p--) {
+            for (let k = 1; k <= item.amount && k <= p; k++) {
+                const previousCombinations = dp[p - k];
+                const newCombinations = previousCombinations.map(comb => {
+                    return [...comb, { ...item, amount: k }];
+                });
+                dp[p].push(...newCombinations);
+            }
+        }
+    }
+    return dp[pick];
 }
-
-function backTracking(items: Array<PickedItem>, pick: number, res: Array<Array<Item>>, startIndex: number) {
-	if (pick === 0) {
-		let currList: Array<Item> = items
-			.filter(item => item.picked > 0)
-			.map(item => ({ type: item.type, amount: item.picked }));
-		res.push(currList);
-		return;
-	}
-
-	for (let i = startIndex; i < items.length; i++) {
-		let item = items[i];
-		if (item.amount > 0) {
-			items[i].amount -= 1;
-			items[i].picked += 1;
-			backTracking(items, pick - 1, res, i);
-			items[i].amount += 1;
-			items[i].picked -= 1;
-		}
-	}
-}
-
-function combination<T extends Item = Item>(items: Array<T>, pick: number): Array<Array<T>> {
-	let res: Array<Array<T>> = [];
-	let pickedItems = items.map(item => ({
-		type: item.type,
-		amount: item.amount,
-		picked: 0,
-	}));
-	backTracking(pickedItems, pick, res, 0);
-	return res;
-}
-
 
 
 let result = combination([
