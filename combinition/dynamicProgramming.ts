@@ -15,16 +15,17 @@ export interface Item {
  */
 function combination<T extends Item = Item> (items: Array<T>, pick: number): Array<Array<T>> {
 	const n = items.length;
+    // create dp array to store combinition
     const dp: Array<Array<Array<T>>> = Array.from({ length: pick + 1 }, () => []);
     
-    dp[0] = [[]];
+    dp[0] = [[]]; // 0 pick up will have empty array
     for (let i = 0; i < n; i++) {
         const item = items[i];
         for (let p = pick; p >= 1; p--) {
             for (let k = 1; k <= item.amount && k <= p; k++) {
-                const previousCombinations = dp[p - k];
+                const previousCombinations = dp[p - k]; // p - k will get combinitions exclude curr pickup
                 const newCombinations = previousCombinations.map(comb => {
-                    return [...comb, { ...item, amount: k }];
+                    return [...comb, { ...item, amount: k }]; // add curr picku into prev combinition
                 });
                 dp[p].push(...newCombinations);
             }
