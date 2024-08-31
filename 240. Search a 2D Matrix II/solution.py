@@ -32,7 +32,7 @@ class BinarySearchSolution:
                     num = matrix[i][mid]
                     if num == target:
                         return True
-                    if target > num:
+                    elif target > num:
                         left = mid + 1
                     else:
                         right = mid
