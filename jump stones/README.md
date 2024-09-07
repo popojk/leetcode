@@ -15,7 +15,7 @@ Test case 6: Stones = [5, 3, 5, 3, 5], Maximum total score = 20
 - 用兩個for loop跑完，答案就在dp[-1]
 - *時間複雜度O(N^2)，空間複雜度O(N)*
 
-1. **suffix sum：**
+2. **suffix sum：**
 
 - 宣告名為max_suffix的一維陣列，長度為input長度，用來儲存包含該格右邊的最大suffix
 - 因為到某格的分數是以步數*石頭數，換句話說找到某格suffix的最大值後，到這個最大值之前的每一步都應填上這個最大值才會是最優解，中間其他值都不用考慮
