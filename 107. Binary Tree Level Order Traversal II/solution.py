@@ -11,11 +11,11 @@ class TreeNode:
 
 
 class Solution:
-    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+    def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
         queue = deque([root])
-        res = []
+        res = deque()
         while queue:
             level_len = len(queue)
             level_res = []
@@ -26,5 +26,5 @@ class Solution:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
-            res.append(level_res)
-        return res
+            res.appendleft(level_res)
+        return list(res)
