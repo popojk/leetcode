@@ -1,7 +1,7 @@
 from typing import List
 
 
-class Solution:
+class TopDownSolution:
     def letterCasePermutation(self, s: str) -> List[str]:
         res = []
 
