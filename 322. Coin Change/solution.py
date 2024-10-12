@@ -20,7 +20,7 @@ class TopDownDPSolution:
                 return math.inf
             if rem == 0:
                 return 0
-            if rem in cache[rem]:
+            if rem in cache:
                 return cache[rem]
             cache[rem] = min(dfs(rem-x, cache) + 1 for x in coins)
             return cache[rem]
