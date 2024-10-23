@@ -56,6 +56,10 @@ class BFSSolution:
 
 class DFSSolution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+        """
+        time: O(n)
+        space: O(n)
+        """
         def getParent(node, parent):
             if node is None:
                 return
