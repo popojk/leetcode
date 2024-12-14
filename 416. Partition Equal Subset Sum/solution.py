@@ -30,7 +30,7 @@ class OptimizeSolution:
 class SecondOptimizeSolution:
     def canPartition(self, nums: List[int]) -> bool:
         # if sum is odd, return False
-        dp, s = set(), sum(nums)
+        dp, s = set([0]), sum(nums)
         if s % 2 != 0:
             return False
         for num in nums:
