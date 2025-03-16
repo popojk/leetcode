@@ -21,7 +21,7 @@ class Solution:
     def minCapability(self, nums: List[int], k: int) -> int:
         """
         Time complexity: O(n log m) - where n is the length of nums and m is the maximum value in nums
-        Space complexity: O(1)
+         Space complexity: O(1)
         """
         def can_steal_k_houses(capability):
             count = 0
