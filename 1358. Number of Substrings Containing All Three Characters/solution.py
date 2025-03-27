@@ -18,4 +18,4 @@ class Solution:
                 char_count[s[left]] -= 1
                 left += 1
         
-        return count
+        return countd
