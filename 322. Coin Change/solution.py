@@ -3,6 +3,10 @@ from typing import List
 
 
 class Solution:
+    """
+    Time: O(amount * len(coins))
+    Space: O(amount)
+    """
     def coinChange(self, coins: List[int], amount: int) -> int:
         min_coins = [amount+1] * (amount+1)
         min_coins[0] = 0
