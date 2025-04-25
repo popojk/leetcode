@@ -18,4 +18,5 @@ class Solution:
             # if right > left and right > 0, call dfs with right-1
             if right > left and right > 0:
                 dfs(left, right-1, path + ')')
+        dfs(n, n, "")
         return res
