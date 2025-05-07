@@ -22,7 +22,6 @@ class Solution:
 class TimeOptimizeSolution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         self.count = 0
-        selfresult = 0
         self.dfs(root, k)
         return self.result
 
