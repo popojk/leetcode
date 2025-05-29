@@ -30,21 +30,23 @@ class DFSSolution:
     
 class BFSSolution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        """時間複雜度O(R * C)，空間複雜度O(R * C)"""
-        r, c = len(heights), len(heights[0])
-        p_queue = deque([[0, j] for j in range(c)] + [[i, 0] for i in range(r)])
-        a_queue = deque([[i, c-1] for i in range(r)] + [[r-1, j] for j in range(c)])
+        if not heights or not heights[0]:
+            return []
 
-        def bfs(queue):
-            visited = set()
+        R, C = len(heights), len(heights[0])
+
+        p_queue = deque([(0, i) for i in range(C)] + [(j, 0) for j in range(R)])
+        a_queue = deque([(R-1, i) for i in range(C)] + [(j, C-1) for j in range(R)])
+
+        def bfs(queue: deque) -> set:
+            visited = set(queue)
             while queue:
-                x, y = queue.popleft()
-                visited.add((x, y))
-                for dx, dy in [[1, 0], [0, 1], [-1, 0], [0, -1]]:
-                    if 0 <= x+dx < r and 0 <= y+dy < c:
-                        if (x+dx, y+dy) not in visited:
-                            if heights[x+dx][y+dy] >= heights[x][y]:
-                                queue.append((x+dx, y+dy))
+                r, c = queue.popleft()
+                for x, y in ((r-1, c), (r+1, c), (r, c-1), (r, c+1)):
+                    if 0 <= x < R and 0 <= y < C and heights[x][y] >= heights[r][c] and (x, y) not in visited:
+                        visited.add((x, y))
+                        queue.append((x, y))
             return visited
+
         p, a = bfs(p_queue), bfs(a_queue)
-        return p.intersection(a)
+        return list(map(list, p & a))
