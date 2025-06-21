@@ -15,16 +15,8 @@ from typing import List
 
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        # init left, right pointer index 0, len(numbers)-1
-        left, right = 0, len(numbers)-1
-        # run while loop when left < right
-        while left < right:
-            # if left + right > target, right index -= 1
-            if numbers[left] + numbers[right] > target:
-                right -= 1
-            # else, left idex += 1
-            elif numbers[left] + numbers[right] < target:
-                left += 1
-            # return left and right index after meets target, happy!!
-            else:
-                return [left+1, right+1]
+        dic = {}
+        for i, num in enumerate(numbers):
+            if target-num in dic:
+                return [dic[target-num]+1, i+1]
+            dic[num] = i

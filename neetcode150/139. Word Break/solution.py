@@ -9,21 +9,19 @@ from typing import List
 
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        """
-        Time: O(N * max_len)
-        Space: O(N)
-        """
-        word_set = set(wordDict)
-        n = len(s)
-        dp = [False] * (n + 1)
+        # init a dp list with len(s)+1, where dp[0] = True
+        dp = [False] * (len(s)+1)
         dp[0] = True
-        max_len = max((len(word) for word in wordDict), default=0)
-
-        for i in range(1, n + 1):
-            for j in range(max(i - max_len, 0), i):
-                if dp[j] and s[j:i] in word_set:
-                    dp[i] = True
+        # get the max_word_len of object in wordDict
+        wordSet = set(wordDict)
+        max_word_len = 0
+        # run for loop to iterate s as idx i
+        for i in range(len(s)):
+            # another for loop to run from i to i - max_len or 0 as idx j
+            for j in range(i, max(0, i - max_word_len), i):
+                # if dp[j-1] == True and s[j:i+1] in wordDict, then mark dp[i] = True
+                if dp[j] and s[j:i] in wordSet:
+                    dp[i]=True
                     break
-
-        return dp[n]
+        return dp[-1]
     

@@ -14,40 +14,39 @@ from typing import List
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         """
-        Time: O(N^2)
-        Space: O(M), where M is the size of response list
+        Time:  O(N ^ 2)
+        Space: O(N ^ 2)
         """
-        # int a lists on list to store results
-        res: List[List[int]] = []
-        # sort the list 
+        # init a list to store result
+        res = []
+        # sort nums to run two pointer
         nums.sort()
-        # run a for loop to iterate i from 0 to len(nums)
+        # run a for loop to iterate nums, the number represent fixed pointer
         for i, a in enumerate(nums):
-            # if a > 0, break the loop as it is impossible to sum 0
+            # if the pointer > 0, breake for loop as it is not possible to compose answer
             if a > 0:
                 break
-            # if i > 0 and nums[i-1] == a, countinue the loop
-            if i > 0 and nums[i-1] == a:
+            # if the pointer == nums[i-1], continue as it will cause duplicates
+            if i > 0 and nums[i-1] == nums[i]:
                 continue
             # init l, r with i+1, len(nums)-1
             l, r = i+1, len(nums)-1
-            # while l < r, iterate
+            # run while loop when l < r
             while l < r:
+                # count sum first
                 sum = a + nums[l] + nums[r]
-                # if 3 sum > 0, r -= 1
+                # if sum > 0, r -=1
                 if sum > 0:
                     r -= 1
-                # elif 3 sum < 0, l += 1
+                # if sum < 0, l += 1
                 elif sum < 0:
                     l += 1
-                # else case, append idx list to list
+                # else case append answer
                 else:
                     res.append([a, nums[l], nums[r]])
-                    # i+=1, l-=1
                     l+=1
                     r-=1
-                    # while nums[l] == nums[l-1] and l < r, l += 1
+                    # while nums[l] == nums[l-1], l+=1
                     while nums[l] == nums[l-1] and l < r:
                         l += 1
-        # return res
         return res
