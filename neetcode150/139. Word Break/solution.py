@@ -23,5 +23,5 @@ class Solution:
                 if dp[j] and s[j:i] in wordSet:
                     dp[i]=True
                     break
-        return dp[-1]
+        return dp[len(s)]
     
