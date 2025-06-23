@@ -49,3 +49,27 @@ class Solution:
                 # append clone neighbor
                 clone_map[current_node.val].neighbors.append(clone_map[neighbor.val])
         return clone_map[node.val]
+    
+    class DFSSolution:
+        def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+            """
+            Time: O(N + E)
+            Space: O(E)
+            """
+            if not node:
+                return node
+            clone_map = {}
+
+            def dfs(current_node: Node) -> Node:
+                if current_node in clone_map:
+                    return clone_map[current_node]
+                
+                # make a clone node and store in map to prevent circle
+                new_clone = Node(val=current_node.val, neighbors=[])
+                clone_map[current_node] = new_clone
+
+                for neighbor in current_node.neighbors:
+                    new_clone.neighbors.append(dfs(neighbor))
+
+                return new_clone
+            return dfs(node)
