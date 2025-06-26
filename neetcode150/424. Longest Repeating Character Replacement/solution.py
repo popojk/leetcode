@@ -11,29 +11,20 @@ from collections import defaultdict
 
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        """
-        Time: O(N)
-        Space: O(1)
-        """
-        # use slide window to count major char, if len(window) - major_char_count <= k, move right 1 more step, else case move left 1 step
-        # init a h_map to store char count
-        h_map = defaultdict(int)
-        # init a max_count to store answer
-        max_len = 0
-        # init left and right pointer both start at idx 0
+        global_max = 0
+        window_map = defaultdict(int)
         left = 0
-        # while left < right and right < len(s), keep iterateing the while loop
         for right in range(len(s)):
-            # update map first
-            h_map[s[right]] += 1
-            # get major_char_count from map
-            major_char_count = max(h_map.values())
-            # if len(window) - major_char_count > k, left += 1 and update map
-            if (right - left + 1) - major_char_count > k:
-                h_map[s[left]] -= 1
-                if h_map[s[left]] == 0:
-                    del h_map[s[left]]
+            # update right window first
+            window_map[s[right]] += 1
+            # get max_char_len 
+            max_char_len = max(window_map.values())
+            # check if window valid
+            if right - left + 1 - max_char_len > k:
+                # if not valid, update left window
+                window_map[s[left]] -= 1
+                if window_map[s[left]] == 0:
+                    del window_map[s[left]]
                 left += 1
-            # update global max_count
-            max_len = max(max_len, right - left + 1)
-        return max_len
+            global_max = max(global_max, right - left + 1)
+        return global_max
